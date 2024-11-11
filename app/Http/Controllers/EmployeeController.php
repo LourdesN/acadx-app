@@ -6,6 +6,7 @@ use App\DataTables\EmployeeDataTable;
 use App\Http\Requests\CreateEmployeeRequest;
 use App\Http\Requests\UpdateEmployeeRequest;
 use App\Http\Controllers\AppBaseController;
+use App\Models\Department;
 use App\Models\School;
 use App\Repositories\EmployeeRepository;
 use Illuminate\Http\Request;
@@ -83,9 +84,11 @@ class EmployeeController extends AppBaseController
     
         // Fetch schools as an associative array with id as the key and name as the value
         $schools = School::pluck('name', 'id');
+        $departments = Department::pluck('name', 'id');
+
     
         // Pass both employee and schools data to the view
-        return view('employees.edit', compact('employee', 'schools'));
+        return view('employees.edit', compact('employee', 'schools', 'departments'));
     }
 
     /**

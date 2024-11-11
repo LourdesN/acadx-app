@@ -24,10 +24,10 @@
         "inView": true
     },
     {
-        "name": "email",
+        "name": "first_name",
         "dbType": "string",
-        "htmlType": "email",
-        "validations": "nullable|string|max:255|nullable|string|max:255",
+        "htmlType": "text",
+        "validations": "required|string|max:191|string|max:191",
         "searchable": true,
         "fillable": true,
         "primary": false,
@@ -36,10 +36,34 @@
         "inView": true
     },
     {
-        "name": "full_name",
-        "dbType": "text",
-        "htmlType": "textarea",
-        "validations": "required|string|string",
+        "name": "surname",
+        "dbType": "string",
+        "htmlType": "text",
+        "validations": "required|string|max:191|string|max:191",
+        "searchable": true,
+        "fillable": true,
+        "primary": false,
+        "inForm": true,
+        "inIndex": true,
+        "inView": true
+    },
+    {
+        "name": "other_names",
+        "dbType": "string",
+        "htmlType": "text",
+        "validations": "nullable|string|max:191|nullable|string|max:191",
+        "searchable": true,
+        "fillable": true,
+        "primary": false,
+        "inForm": true,
+        "inIndex": true,
+        "inView": true
+    },
+    {
+        "name": "email",
+        "dbType": "string",
+        "htmlType": "email",
+        "validations": "nullable|string|max:255|nullable|string|max:255",
         "searchable": true,
         "fillable": true,
         "primary": false,
@@ -96,10 +120,22 @@
         "inView": true
     },
     {
-        "name": "department_id",
-        "dbType": "integer,false",
+        "name": "date_of_birth",
+        "dbType": "date",
+        "htmlType": "date",
+        "validations": "required",
+        "searchable": true,
+        "fillable": true,
+        "primary": false,
+        "inForm": true,
+        "inIndex": true,
+        "inView": true
+    },
+    {
+        "name": "level_id",
+        "dbType": "bigInteger,false,true",
         "htmlType": "number",
-        "validations": "nullable|nullable",
+        "validations": "required",
         "searchable": true,
         "fillable": true,
         "primary": false,
@@ -132,18 +168,6 @@
         "inView": true
     },
     {
-        "name": "status",
-        "dbType": "boolean",
-        "htmlType": "checkbox",
-        "validations": "required|boolean|boolean",
-        "searchable": true,
-        "fillable": true,
-        "primary": false,
-        "inForm": true,
-        "inIndex": true,
-        "inView": true
-    },
-    {
         "name": "created_at",
         "dbType": "datetime",
         "htmlType": "date",
@@ -168,12 +192,20 @@
         "inView": false
     },
     {
-        "type": "relation",
-        "relation": "mt1,Course,course_id"
+        "name": "status",
+        "dbType": "string",
+        "htmlType": "text",
+        "validations": "nullable|string|max:191|nullable|string|max:191",
+        "searchable": true,
+        "fillable": true,
+        "primary": false,
+        "inForm": true,
+        "inIndex": true,
+        "inView": true
     },
     {
         "type": "relation",
-        "relation": "mt1,Department,department_id"
+        "relation": "mt1,Course,course_id"
     },
     {
         "type": "relation",

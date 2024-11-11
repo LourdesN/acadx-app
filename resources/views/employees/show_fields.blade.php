@@ -48,7 +48,7 @@
 
 <!-- Department Id Field -->
 <div class="col-sm-12">
-    {!! Form::label('department_id', 'Department Id:') !!}
-    <p>{{ $employee->department_id }}</p>
+    {!! Form::label('department_id', 'Department:') !!}
+    <p>{{ $employee->department->name }}</p>
 </div>
 

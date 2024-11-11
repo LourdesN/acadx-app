@@ -23,16 +23,20 @@ class StudentDataTable extends DataTable
                         ->editColumn('date_of_admission', function ($student) {
                         return \Carbon\Carbon::parse($student->date_of_admission)->format('d-m-Y');
                         })
-                         ->editColumn('gender', function ($student) {
+                        ->editColumn('date_of_birth', function ($student) {
+                            return \Carbon\Carbon::parse($student->date_of_birth)->format('d-m-Y');
+                        })
+                        ->editColumn('gender', function ($student) {
                              return $student->gender == 'male' ? 'Male' : 'Female';
                          })
-                         ->editColumn('department_id', function ($student) {
-                             return $student->department ? $student->department->name : 'N/A';
+                        ->editColumn('level_id', function ($student) {
+                             return $student->level ? $student->level->name : 'N/A';
                          })
-                         ->editColumn('course_id', function ($student) {
+                        ->editColumn('course_id', function ($student) {
                              return $student->course ? $student->course->name : 'N/A';
                          });
     }
+
 
     /**
      * Get query source of dataTable.
@@ -42,8 +46,7 @@ class StudentDataTable extends DataTable
      */
     public function query(Student $model)
     {
-        // Eager load the relations for department and course to avoid N+1 queries
-        return $model->with(['department', 'course'])->newQuery();
+        return $model->newQuery();
     }
 
     /**
@@ -63,6 +66,11 @@ class StudentDataTable extends DataTable
                 'order'     => [[0, 'desc']],
                 'buttons'   => [
                     // Enable Buttons as per your need
+//                    ['extend' => 'create', 'className' => 'btn btn-default btn-sm no-corner',],
+//                    ['extend' => 'export', 'className' => 'btn btn-default btn-sm no-corner',],
+//                    ['extend' => 'print', 'className' => 'btn btn-default btn-sm no-corner',],
+//                    ['extend' => 'reset', 'className' => 'btn btn-default btn-sm no-corner',],
+//                    ['extend' => 'reload', 'className' => 'btn btn-default btn-sm no-corner',],
                 ],
             ]);
     }
@@ -76,16 +84,19 @@ class StudentDataTable extends DataTable
     {
         return [
             'admn_no',
+            'first_name',
+            'surname',
+            'other_names',
             'email',
-            'full_name',
             'phone_number',
             'address',
             'id_number',
             'date_of_admission',
-            'department_id'=> ['title' => 'Department'] , // Will display the department name
-            'course_id'=> ['title' => 'Course'] ,     // Will display the course name
-            'gender',        // Will display 'Male' or 'Female'
-            'status',
+            'date_of_birth',
+            'level_id' => ['title' =>'Level'],
+            'course_id'=> ['title' => 'Course'] ,
+            'gender',
+            'status'
         ];
     }
 
@@ -98,6 +109,4 @@ class StudentDataTable extends DataTable
     {
         return 'students_datatable_' . time();
     }
-
-    
 }

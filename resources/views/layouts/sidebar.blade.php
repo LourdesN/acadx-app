@@ -1,8 +1,8 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <a href="{{ route('home') }}" class="brand-link">
-        <img src="https://assets.infyom.com/logo/blue_logo_150x150.png"
-             alt="AdminLTE Logo"
-             class="brand-image img-circle elevation-3">
+        <img src="https://www.learnsoftbeliotechsolutions.co.ke/img/logo.png"
+             alt="learnsoft Logo"
+             class="brand-image img-circle elevation-3 "style="background-color: white;">
         <span class="brand-text font-weight-light">{{ config('app.name') }}</span>
     </a>
 

@@ -48,6 +48,6 @@
 
 <!-- Department Id Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('department_id', 'Department ID:') !!}
-    {!! Form::number('department_id', null, ['class' => 'form-control', 'required']) !!}
+    {!! Form::label('department_id', 'Department:') !!}
+    {!! Form::select('department_id', $departments, null, ['class' => 'form-control', 'placeholder' => 'Select department', 'required']) !!}
 </div>

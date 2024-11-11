@@ -82,8 +82,8 @@ class EmployeeDataTable extends DataTable
             'id_number',
             'title',
             'address',
-            'school' => ['title' => 'School'],        // Display as 'School' instead of 'school_id'
-            'department' => ['title' => 'Department'] // Display as 'Department' instead of 'department_id'
+            'school' => ['title' => 'School'],
+            'department' => ['title' => 'Department']
         ];
     }
 

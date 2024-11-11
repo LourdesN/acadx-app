@@ -7,7 +7,7 @@ use App\Http\Requests\CreateStudentRequest;
 use App\Http\Requests\UpdateStudentRequest;
 use App\Http\Controllers\AppBaseController;
 use App\Models\Course;
-use App\Models\Department;
+use App\Models\Level;
 use App\Repositories\StudentRepository;
 use Illuminate\Http\Request;
 use Flash;
@@ -36,10 +36,11 @@ class StudentController extends AppBaseController
      */
     public function create()
     {
-        $departments = Department::pluck('name', 'id');
+        $levels = Level::pluck('name', 'id');
         $courses = Course::pluck('name', 'id');
-        return view('students.create', compact('departments', 'courses'));
+        return view('students.create', compact('levels', 'courses'));
     }
+
 
     /**
      * Store a newly created Student in storage.
@@ -83,11 +84,12 @@ class StudentController extends AppBaseController
 
             return redirect(route('students.index'));
         }
-        $departments = Department::pluck('name', 'id');
+        $levels = Level::pluck('name', 'id');
         $courses = Course::pluck('name', 'id');
 
-        return view('students.edit', compact('student', 'courses', 'departments'));
+        return view('students.edit', compact('student', 'courses', 'levels'));
     }
+
 
     /**
      * Update the specified Student in storage.

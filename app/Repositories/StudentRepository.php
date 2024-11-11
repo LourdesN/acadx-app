@@ -9,13 +9,16 @@ class StudentRepository extends BaseRepository
 {
     protected $fieldSearchable = [
         'admn_no',
+        'first_name',
+        'surname',
+        'other_names',
         'email',
-        'full_name',
         'phone_number',
         'address',
         'id_number',
         'date_of_admission',
-        'department_id',
+        'date_of_birth',
+        'level_id',
         'course_id',
         'gender',
         'status'
