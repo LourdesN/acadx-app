@@ -2,11 +2,11 @@
 
 namespace App\DataTables;
 
-use App\Models\Fee;
+use App\Models\Lecturer;
 use Yajra\DataTables\Services\DataTable;
 use Yajra\DataTables\EloquentDataTable;
 
-class FeeDataTable extends DataTable
+class LecturerDataTable extends DataTable
 {
     /**
      * Build DataTable class.
@@ -18,24 +18,28 @@ class FeeDataTable extends DataTable
     {
         $dataTable = new EloquentDataTable($query);
 
-        return $dataTable->addColumn('action', 'fees.datatables_actions')
-                        ->editColumn('course_id', function ($student) {
-                        return $student->course ? $student->course->name : 'N/A';
+        return $dataTable->addColumn('action', 'lecturers.datatables_actions')
+                        ->editColumn('unit_id', function ($lecturer) {
+                            return $lecturer->unit ? $lecturer->unit->unit_name : 'N/A';
                         })
-                        ->editColumn('expected_amount', function ($fee) {
-                            return 'Kshs ' . number_format($fee->expected_amount, 2);
+                        ->editColumn('employee_no', function ($lecturer) {
+                            return $lecturer->employee ? $lecturer->employee->title . ' ' . $lecturer->employee->last_name : 'N/A';
+                        })
+                        ->editColumn('department_id', function ($lecturer) {
+                            return $lecturer->department ? $lecturer->department->name : 'N/A';
                         });
-}
+    }
 
     /**
      * Get query source of dataTable.
      *
-     * @param \App\Models\Fee $model
+     * @param \App\Models\Lecturer $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function query(Fee $model)
+    public function query(Lecturer $model)
     {
-        return $model->newQuery();
+        return $model->newQuery()
+        ->with(['employee:id,title,last_name', 'department:id,name']);
     }
 
     /**
@@ -72,8 +76,9 @@ class FeeDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            'course_id'=> ['title' => 'Course'] ,
-            'expected_amount'=> ['title' => 'Fees Per Semester'] 
+            'unit_id' => ['title' => 'Unit Name'],
+            'employee_no' => ['title' => 'Lecturer Name'],
+            'department_id' => ['title' => 'Department'],
         ];
     }
 
@@ -84,6 +89,6 @@ class FeeDataTable extends DataTable
      */
     protected function filename(): string
     {
-        return 'fees_datatable_' . time();
+        return 'lecturers_datatable_' . time();
     }
 }

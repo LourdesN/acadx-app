@@ -49,9 +49,75 @@
 </li>
 
 <li class="nav-item">
-    <a href="{{ route('fees.index') }}" class="nav-link {{ Request::is('fees*') ? 'active' : '' }}">
-        <i class="fas fa-file-invoice-dollar"></i>
-        <p>Fees</p>
+    <a href="{{ route('units.index') }}" class="nav-link {{ Request::is('units*') ? 'active' : '' }}">
+       <i class="fas fa-book"></i>
+        <p>Units</p>
     </a>
 </li>
 
+<li class="nav-item">
+    <a href="#" class="nav-link {{ Request::is('invoices*') || Request::is('receipts*') ? 'active' : '' }}" onclick="toggleDropdown(event)">
+        <i class="fas fa-money-bill-wave"></i> Finances <i class="fas fa-caret-down"></i>
+    </a>
+    <div id="financesDropdown" class="collapse">
+         <a href="{{ route('fees.index') }}" class="dropdown-item d-flex align-items-center {{ Request::is('fees*') ? 'active' : '' }}">
+            <i class="fas fa-file-invoice-dollar mr-2"></i> Fees
+        </a>
+        <a href="{{ route('invoices.index') }}" class="dropdown-item d-flex align-items-center {{ Request::is('invoices*') ? 'active' : '' }}">
+            <i class="fas fa-file-invoice mr-2"></i> Invoices
+        </a>
+        <a href="{{ route('receipts.index') }}" class="dropdown-item d-flex align-items-center {{ Request::is('receipts*') ? 'active' : '' }}">
+            <i class="fas fa-receipt mr-2"></i> Receipts
+        </a>
+    </div>
+</li>
+
+<!-- inahandle drop down behaviour -->
+<script>
+    function toggleDropdown(event) {
+        event.preventDefault();
+        const dropdownContent = document.getElementById('financesDropdown');
+        dropdownContent.classList.toggle('show');
+    }
+</script>
+
+<style>
+    #financesDropdown.show {
+        display: block;
+        padding-left: 20px;
+    }
+    #financesDropdown {
+        display: none;
+    }
+/* Style for the dropdown items */
+.dropdown-item {
+        display: flex;
+        align-items: center;
+    }
+
+    .dropdown-item:hover {
+        background-color: #343a40;
+        color: white;
+    }
+
+    .nav-link {
+        color: #495057;
+        padding: 10px;
+    }
+
+    .nav-link:hover {
+        color: #007bff;
+    }
+
+    .fa-caret-down{
+        margin-left: 100px;
+        font-size: 20px;
+    }
+</style>
+
+<li class="nav-item">
+    <a href="{{ route('lecturers.index') }}" class="nav-link {{ Request::is('lecturers*') ? 'active' : '' }}">
+    <i class="fas fa-chalkboard-teacher"></i>
+        <p>Lecturers</p>
+    </a>
+</li>

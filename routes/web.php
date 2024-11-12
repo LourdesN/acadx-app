@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -28,3 +29,7 @@ Route::resource('departments', App\Http\Controllers\DepartmentController::class)
 Route::resource('schools', App\Http\Controllers\SchoolController::class);
 Route::resource('employees', App\Http\Controllers\EmployeeController::class);
 Route::resource('fees', App\Http\Controllers\FeeController::class);
+Route::resource('units', App\Http\Controllers\UnitController::class);
+Route::resource('invoices', App\Http\Controllers\InvoiceController::class);
+Route::resource('receipts', App\Http\Controllers\ReceiptController::class);
+Route::resource('lecturers', App\Http\Controllers\LecturerController::class);

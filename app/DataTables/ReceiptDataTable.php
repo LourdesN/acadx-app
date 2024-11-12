@@ -2,11 +2,11 @@
 
 namespace App\DataTables;
 
-use App\Models\Fee;
+use App\Models\Receipt;
 use Yajra\DataTables\Services\DataTable;
 use Yajra\DataTables\EloquentDataTable;
 
-class FeeDataTable extends DataTable
+class ReceiptDataTable extends DataTable
 {
     /**
      * Build DataTable class.
@@ -18,22 +18,16 @@ class FeeDataTable extends DataTable
     {
         $dataTable = new EloquentDataTable($query);
 
-        return $dataTable->addColumn('action', 'fees.datatables_actions')
-                        ->editColumn('course_id', function ($student) {
-                        return $student->course ? $student->course->name : 'N/A';
-                        })
-                        ->editColumn('expected_amount', function ($fee) {
-                            return 'Kshs ' . number_format($fee->expected_amount, 2);
-                        });
-}
+        return $dataTable->addColumn('action', 'receipts.datatables_actions');
+    }
 
     /**
      * Get query source of dataTable.
      *
-     * @param \App\Models\Fee $model
+     * @param \App\Models\Receipt $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function query(Fee $model)
+    public function query(Receipt $model)
     {
         return $model->newQuery();
     }
@@ -72,8 +66,13 @@ class FeeDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            'course_id'=> ['title' => 'Course'] ,
-            'expected_amount'=> ['title' => 'Fees Per Semester'] 
+            'student_id',
+            'receipt_no',
+            'amount_paid',
+            'mode_of_payment',
+            'refrence_no',
+            'invoice_id',
+            'balance'
         ];
     }
 
@@ -84,6 +83,6 @@ class FeeDataTable extends DataTable
      */
     protected function filename(): string
     {
-        return 'fees_datatable_' . time();
+        return 'receipts_datatable_' . time();
     }
 }

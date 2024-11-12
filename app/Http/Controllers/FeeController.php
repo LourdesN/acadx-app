@@ -6,6 +6,7 @@ use App\DataTables\FeeDataTable;
 use App\Http\Requests\CreateFeeRequest;
 use App\Http\Requests\UpdateFeeRequest;
 use App\Http\Controllers\AppBaseController;
+use App\Models\Course;
 use App\Repositories\FeeRepository;
 use Illuminate\Http\Request;
 use Flash;
@@ -34,7 +35,8 @@ class FeeController extends AppBaseController
      */
     public function create()
     {
-        return view('fees.create');
+        $courses = Course::pluck('name', 'id');
+        return view('fees.create', compact( 'courses'));
     }
 
     /**
@@ -79,8 +81,9 @@ class FeeController extends AppBaseController
 
             return redirect(route('fees.index'));
         }
+        $courses = Course::pluck('name', 'id');
 
-        return view('fees.edit')->with('fee', $fee);
+        return view('fees.edit', compact('fee',  'courses'));
     }
 
     /**

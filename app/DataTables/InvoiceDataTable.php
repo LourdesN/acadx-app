@@ -2,11 +2,11 @@
 
 namespace App\DataTables;
 
-use App\Models\Fee;
+use App\Models\Invoice;
 use Yajra\DataTables\Services\DataTable;
 use Yajra\DataTables\EloquentDataTable;
 
-class FeeDataTable extends DataTable
+class InvoiceDataTable extends DataTable
 {
     /**
      * Build DataTable class.
@@ -18,22 +18,19 @@ class FeeDataTable extends DataTable
     {
         $dataTable = new EloquentDataTable($query);
 
-        return $dataTable->addColumn('action', 'fees.datatables_actions')
-                        ->editColumn('course_id', function ($student) {
-                        return $student->course ? $student->course->name : 'N/A';
-                        })
-                        ->editColumn('expected_amount', function ($fee) {
-                            return 'Kshs ' . number_format($fee->expected_amount, 2);
+        return $dataTable->addColumn('action', 'invoices.datatables_actions')
+                        ->editColumn('student_id', function ($invoice) {
+                         return $invoice->student->admn_no . ' - ' . $invoice->student->first_name . ' ' . $invoice->student->surname;
                         });
-}
+    }
 
     /**
      * Get query source of dataTable.
      *
-     * @param \App\Models\Fee $model
+     * @param \App\Models\Invoice $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function query(Fee $model)
+    public function query(Invoice $model)
     {
         return $model->newQuery();
     }
@@ -72,8 +69,10 @@ class FeeDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            'course_id'=> ['title' => 'Course'] ,
-            'expected_amount'=> ['title' => 'Fees Per Semester'] 
+            'amount',
+            'student_id'=>['title'=> 'Student'],
+            'year',
+            'semester'
         ];
     }
 
@@ -84,6 +83,6 @@ class FeeDataTable extends DataTable
      */
     protected function filename(): string
     {
-        return 'fees_datatable_' . time();
+        return 'invoices_datatable_' . time();
     }
 }
