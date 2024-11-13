@@ -90,4 +90,17 @@ class Student extends Model
     {
         return $this->hasMany(\App\Models\Receipt::class, 'student_id');
     }
+
+    public function department()
+{
+    return $this->hasOneThrough(
+        Department::class,
+        Course::class,
+        'id',          // Foreign key on the Course table
+        'id',          // Foreign key on the Department table
+        'course_id',   // Local key on the Student table
+        'department_id' // Local key on the Course table
+    );
+}
+
 }

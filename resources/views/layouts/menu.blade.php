@@ -121,3 +121,17 @@
         <p>Lecturers</p>
     </a>
 </li>
+
+<li class="nav-item">
+    <a href="{{ route('enrolments.index') }}" class="nav-link {{ Request::is('enrolments*') ? 'active' : '' }}">
+        <i class="fas fa-sign-in-alt"></i>
+        <p>Enrolments</p>
+    </a>
+</li>
+
+<li class="nav-item">
+    <a href="{{ route('grades.index') }}" class="nav-link {{ Request::is('grades*') ? 'active' : '' }}">
+        <i class="fas fa-poll"></i>
+        <p>Grades</p>
+    </a>
+</li>

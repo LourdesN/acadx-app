@@ -2,11 +2,11 @@
 
 namespace App\DataTables;
 
-use App\Models\Student;
+use App\Models\Enrolment;
 use Yajra\DataTables\Services\DataTable;
 use Yajra\DataTables\EloquentDataTable;
 
-class StudentDataTable extends DataTable
+class EnrolmentDataTable extends DataTable
 {
     /**
      * Build DataTable class.
@@ -18,36 +18,28 @@ class StudentDataTable extends DataTable
     {
         $dataTable = new EloquentDataTable($query);
 
-        // Format the data as needed (e.g., displaying department name, course name, gender, etc.)
-        return $dataTable->addColumn('action', 'students.datatables_actions')
-                        ->addColumn('department', function ($student) {
-                        return $student->department ? $student->department->name : 'N/A';
-                        })
-                        ->editColumn('date_of_admission', function ($student) {
-                        return \Carbon\Carbon::parse($student->date_of_admission)->format('d-m-Y');
-                        })
-                        ->editColumn('date_of_birth', function ($student) {
-                            return \Carbon\Carbon::parse($student->date_of_birth)->format('d-m-Y');
-                        })
-                        ->editColumn('gender', function ($student) {
-                             return $student->gender == 'male' ? 'Male' : 'Female';
+        return $dataTable->addColumn('action', 'enrolments.datatables_actions')
+                        ->addColumn('student_name', function (Enrolment $enrolment) {
+                         return $enrolment->student->admn_no . ' - ' . $enrolment->student->first_name . ' ' . $enrolment->student->surname;
                          })
-                        ->editColumn('level_id', function ($student) {
-                             return $student->level ? $student->level->name : 'N/A';
-                         })
-                        ->editColumn('course_id', function ($student) {
-                             return $student->course ? $student->course->name : 'N/A';
-                         });
+                         ->addColumn('course_name', function (Enrolment $enrolment) {
+                            return $enrolment->course ? $enrolment->course->name : 'N/A';
+                        })
+                        ->addColumn('formatted_year', function ($enrolment) {
+                            return $enrolment->year . ($enrolment->year == 1 ? 'st' : ($enrolment->year == 2 ? 'nd' : ($enrolment->year == 3 ? 'rd' : 'th'))) . ' year';
+                        })
+                        ->addColumn('units', function (Enrolment $enrolment) {
+                             return $enrolment->units ? $enrolment->units->pluck('unit_name')->implode(', ') : 'N/A';
+                        });
     }
-
 
     /**
      * Get query source of dataTable.
      *
-     * @param \App\Models\Student $model
+     * @param \App\Models\Enrolment $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function query(Student $model)
+    public function query(Enrolment $model)
     {
         return $model->newQuery();
     }
@@ -86,21 +78,12 @@ class StudentDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            'admn_no',
-            'first_name',
-            'surname',
-            'other_names',
-            'email',
-            'phone_number',
-            'address',
-            'id_number',
-            'date_of_admission',
-            'date_of_birth',
-            'level_id' => ['title' =>'Level'],
-            'course_id'=> ['title' => 'Course'] ,
-            'gender',
-            'department',
-            'status'
+            'student_name' => ['title' => 'Student Name'],
+            'course_name' => ['title' => 'Course Name'],
+            'units' => ['title' => 'Units'],
+            'semester',
+            'semester_status',
+            'formatted_year' => ['title' => 'Year'] 
         ];
     }
 
@@ -111,6 +94,6 @@ class StudentDataTable extends DataTable
      */
     protected function filename(): string
     {
-        return 'students_datatable_' . time();
+        return 'enrolments_datatable_' . time();
     }
 }

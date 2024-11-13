@@ -83,3 +83,9 @@
     <p>{{ $student->status }}</p>
 </div>
 
+<!-- Department Field -->
+<div class="col-sm-12">
+    {!! Form::label('department', 'Department:') !!}
+    <p>{{ $student->department ? $student->department->name : 'N/A' }}</p>
+</div>
+

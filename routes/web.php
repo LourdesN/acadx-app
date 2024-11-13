@@ -33,3 +33,5 @@ Route::resource('units', App\Http\Controllers\UnitController::class);
 Route::resource('invoices', App\Http\Controllers\InvoiceController::class);
 Route::resource('receipts', App\Http\Controllers\ReceiptController::class);
 Route::resource('lecturers', App\Http\Controllers\LecturerController::class);
+Route::resource('enrolments', App\Http\Controllers\EnrolmentController::class);
+Route::resource('grades', App\Http\Controllers\GradeController::class);
