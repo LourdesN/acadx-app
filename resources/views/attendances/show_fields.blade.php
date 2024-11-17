@@ -1,7 +1,7 @@
 <!-- Student Id Field -->
 <div class="col-sm-12">
-    {!! Form::label('student_id', 'Student Id:') !!}
-    <p>{{ $attendance->student_id }}</p>
+    {!! Form::label('student_id', 'Student:') !!}
+    <p>{{ $coursework->student->admn_no }}  {{ $coursework->student->surname }}  {{ $coursework->student->first_name }}</p>
 </div>
 
 <!-- Attendance Date Field -->

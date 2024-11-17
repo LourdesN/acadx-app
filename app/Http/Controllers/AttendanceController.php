@@ -6,6 +6,7 @@ use App\DataTables\AttendanceDataTable;
 use App\Http\Requests\CreateAttendanceRequest;
 use App\Http\Requests\UpdateAttendanceRequest;
 use App\Http\Controllers\AppBaseController;
+use App\Models\Student;
 use App\Repositories\AttendanceRepository;
 use Illuminate\Http\Request;
 use Flash;
@@ -34,7 +35,13 @@ class AttendanceController extends AppBaseController
      */
     public function create()
     {
-        return view('attendances.create');
+        $students = Student::select('id', 'admn_no', 'surname', 'first_name')
+            ->get()
+            ->mapWithKeys(function ($student) {
+                return [$student->id => $student->admn_no . ' ' . $student->surname . ' ' . $student->first_name];
+            });
+    
+        return view('attendances.create', compact('students'));
     }
 
     /**
@@ -79,8 +86,13 @@ class AttendanceController extends AppBaseController
 
             return redirect(route('attendances.index'));
         }
+        $students = Student::select('id', 'admn_no', 'surname', 'first_name')
+        ->get()
+        ->mapWithKeys(function ($student) {
+            return [$student->id => $student->admn_no . ' ' . $student->surname . ' ' . $student->first_name];
+        });
 
-        return view('attendances.edit')->with('attendance', $attendance);
+        return view('attendances.edit', compact('attendance', 'students'));
     }
 
     /**

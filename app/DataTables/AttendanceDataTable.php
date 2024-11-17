@@ -18,7 +18,10 @@ class AttendanceDataTable extends DataTable
     {
         $dataTable = new EloquentDataTable($query);
 
-        return $dataTable->addColumn('action', 'attendances.datatables_actions');
+        return $dataTable->addColumn('action', 'attendances.datatables_actions')
+                            ->addColumn('student_name', function (Attendance $attendance) {
+                                return $attendance->student->admn_no . ' - ' . $attendance->student->first_name . ' ' . $attendance->student->surname;
+                            });
     }
 
     /**
@@ -66,7 +69,7 @@ class AttendanceDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            'student_id',
+            'student_name' => ['title' => 'Student Name'],
             'attendance_date',
             'attendance_status',
             'lesson_id'
