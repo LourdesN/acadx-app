@@ -46,6 +46,11 @@ class Enrolment extends Model
     {
         return $this->belongsTo(\App\Models\Unit::class, 'units_id');
     }
+    public function unit()
+{
+    return $this->belongsTo(Unit::class, 'units_id');
+}
+
 
     public function courseworks(): \Illuminate\Database\Eloquent\Relations\HasMany
     {

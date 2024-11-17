@@ -135,3 +135,31 @@
         <p>Grades</p>
     </a>
 </li>
+
+<li class="nav-item">
+    <a href="{{ route('exams.index') }}" class="nav-link {{ Request::is('exams*') ? 'active' : '' }}">
+    <i class="fas fa-sticky-note"></i>
+        <p>Exams</p>
+    </a>
+</li>
+
+<li class="nav-item">
+    <a href="{{ route('courseworks.index') }}" class="nav-link {{ Request::is('courseworks*') ? 'active' : '' }}">
+       <i class="fab fa-leanpub"></i>
+        <p>Courseworks</p>
+    </a>
+</li>
+
+<li class="nav-item">
+    <a href="{{ route('lessons.index') }}" class="nav-link {{ Request::is('lessons*') ? 'active' : '' }}">
+    <i class="fas fa-book-reader"></i>
+        <p>Lessons</p>
+    </a>
+</li>
+
+<li class="nav-item">
+    <a href="{{ route('attendances.index') }}" class="nav-link {{ Request::is('attendances*') ? 'active' : '' }}">
+        <i class="far fa-address-book"></i>
+        <p>Attendances</p>
+    </a>
+</li>

@@ -35,3 +35,7 @@ Route::resource('receipts', App\Http\Controllers\ReceiptController::class);
 Route::resource('lecturers', App\Http\Controllers\LecturerController::class);
 Route::resource('enrolments', App\Http\Controllers\EnrolmentController::class);
 Route::resource('grades', App\Http\Controllers\GradeController::class);
+Route::resource('exams', App\Http\Controllers\ExamController::class);
+Route::resource('courseworks', App\Http\Controllers\CourseworkController::class);
+Route::resource('lessons', App\Http\Controllers\LessonController::class);
+Route::resource('attendances', App\Http\Controllers\AttendanceController::class);
