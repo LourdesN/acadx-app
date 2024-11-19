@@ -6,6 +6,21 @@ use Illuminate\Database\Eloquent\Model;
 
 class Employee extends Model
 {
+    protected static function booted()
+    {
+        static::created(function ($employee) {
+            // Automatically create a user record when an employee is created
+            $user = User::create([
+                'name' => $employee->first_name . ' ' . $employee->last_name,
+                'email' => $employee->email, // Assuming you have an email field
+                'password' => bcrypt('default_password'), // You can set a default password or generate one
+            ]);
+            
+            // Associate the user with the employee
+            $employee->user_id = $user->id;
+            $employee->save();
+        });
+    }
     public $table = 'employees';
 
     public $fillable = [
@@ -61,4 +76,9 @@ class Employee extends Model
     {
         return $this->hasMany(\App\Models\Lecturer::class, 'employee_no');
     }
+    public function user()
+{
+    return $this->belongsTo(User::class);
+}
+
 }
