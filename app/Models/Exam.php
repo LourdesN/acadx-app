@@ -35,4 +35,6 @@ class Exam extends Model
     {
         return $this->belongsTo(\App\Models\Student::class, 'student_id');
     }
+
 }
+

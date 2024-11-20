@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\DataTables\ExamDataTable;
+use App\Events\ScoresUpdated;
 use App\Http\Requests\CreateExamRequest;
 use App\Http\Requests\UpdateExamRequest;
 use App\Http\Controllers\AppBaseController;
@@ -53,15 +54,22 @@ class ExamController extends AppBaseController
      * Store a newly created Exam in storage.
      */
     public function store(CreateExamRequest $request)
-    {
-        $input = $request->all();
+{
+    $input = $request->all();
 
-        $exam = $this->examRepository->create($input);
+    // Create the exam record
+    $exam = $this->examRepository->create($input);
 
-        Flash::success('Exam saved successfully.');
+    // Fetch the enrolment associated with the exam (assuming there's a relationship)
+    $enrolment = $exam->enrolment;
 
-        return redirect(route('exams.index'));
+    if ($enrolment->exams->isNotEmpty() && $enrolment->courseworks->isNotEmpty()) {
+        event(new ScoresUpdated($enrolment));
     }
+    Flash::success('Exam saved successfully.');
+
+    return redirect(route('exams.index'));
+}
 
     /**
      * Display the specified Exam.

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\DataTables\CourseworkDataTable;
+use App\Events\ScoresUpdated;
 use App\Http\Requests\CreateCourseworkRequest;
 use App\Http\Requests\UpdateCourseworkRequest;
 use App\Http\Controllers\AppBaseController;
@@ -50,16 +51,26 @@ class CourseworkController extends AppBaseController
     /**
      * Store a newly created Coursework in storage.
      */
-    public function store(CreateCourseworkRequest $request)
-    {
-        $input = $request->all();
+   
+public function store(CreateCourseworkRequest $request)
+{
+    // Get the input from the request
+    $input = $request->all();
 
-        $coursework = $this->courseworkRepository->create($input);
+    // Create the coursework record
+    $coursework = $this->courseworkRepository->create($input);
 
-        Flash::success('Coursework saved successfully.');
+    $enrolment = $coursework->enrolment;
 
-        return redirect(route('courseworks.index'));
+    // Check if both exams and courseworks exist for the enrolment
+    if ($enrolment->exams->isNotEmpty() && $enrolment->courseworks->isNotEmpty()) {
+        event(new ScoresUpdated($enrolment));
     }
+
+    Flash::success('Coursework saved successfully.');
+
+    return redirect(route('courseworks.index'));
+}
 
     /**
      * Display the specified Coursework.

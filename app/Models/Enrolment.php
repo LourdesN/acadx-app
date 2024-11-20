@@ -71,4 +71,10 @@ class Enrolment extends Model
     {
         return $this->hasMany(\App\Models\Lesson::class, 'enrolment_id');
     }
+
+public function grade()
+{
+    return $this->hasOne(Grade::class);
+}
+
 }
