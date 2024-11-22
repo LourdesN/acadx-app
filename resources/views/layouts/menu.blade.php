@@ -1,4 +1,10 @@
 <!-- need to remove -->
+ <style>
+    i{
+        margin-right: 10px;
+    }
+
+ </style>
 <li class="nav-item">
     <a href="{{ route('home') }}" class="nav-link {{ Request::is('home') ? 'active' : '' }}">
         <i class="nav-icon fas fa-home"></i>
@@ -117,7 +123,7 @@
 
 <li class="nav-item">
     <a href="{{ route('lecturers.index') }}" class="nav-link {{ Request::is('lecturers*') ? 'active' : '' }}">
-    <i class="fas fa-chalkboard-teacher"></i>
+    <i class="fas fa-chalkboard-teacher text-warning"></i>
         <p>Lecturers</p>
     </a>
 </li>

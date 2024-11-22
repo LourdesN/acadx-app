@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\EnrolmentController;
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -42,3 +43,4 @@ Route::resource('lessons', App\Http\Controllers\LessonController::class);
 Route::resource('attendances', App\Http\Controllers\AttendanceController::class);
 
 Route::post('/enrolments/{enrolmentId}/update-grade', [EnrolmentController::class, 'updateGrade'])->name('enrolments.update-grade');
+
