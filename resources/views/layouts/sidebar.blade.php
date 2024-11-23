@@ -1,4 +1,4 @@
-<aside class="main-sidebar sidebar-dark-danger elevation-4">
+<aside class="main-sidebar sidebar-dark-info elevation-4">
     <a href="{{ route('home') }}" class="brand-link">
         <img src="https://www.learnsoftbeliotechsolutions.co.ke/img/logo.png"
              alt="learnsoft Logo"

@@ -9,18 +9,24 @@ class GradeService
 {
     public function updateGradeScore($enrolmentId)
     {
-        // Fetch enrolment with associated exams and courseworks
         $enrolment = Enrolment::with(['exams', 'courseworks'])->findOrFail($enrolmentId);
 
-        // Calculate total score
+        // Define weights in %
+        $examWeight = 60;
+        $courseworkWeight = 40;
+
         $examScore = $enrolment->exams->sum('marks');
         $courseworkScore = $enrolment->courseworks->sum('marks');
-        $totalScore = $examScore + $courseworkScore;
+
+        // Normalize scores to ensure the total is out of 100
+        $normalizedExamScore = ($examScore / 100) * $examWeight;
+        $normalizedCourseworkScore = ($courseworkScore / 100) * $courseworkWeight;
+        $totalScore = $normalizedExamScore + $normalizedCourseworkScore;
 
         // Update or create grade for this enrolment
         $grade = Grade::updateOrCreate(
             ['enrolment_id' => $enrolmentId],
-            ['score' => $totalScore]
+            ['score' => round($totalScore, 2)] // Round to 2 decimal places
         );
 
         return $grade;
