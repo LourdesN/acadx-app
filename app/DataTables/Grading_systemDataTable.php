@@ -2,11 +2,11 @@
 
 namespace App\DataTables;
 
-use App\Models\Grade;
+use App\Models\Grading_system;
 use Yajra\DataTables\Services\DataTable;
 use Yajra\DataTables\EloquentDataTable;
 
-class GradeDataTable extends DataTable
+class Grading_systemDataTable extends DataTable
 {
     /**
      * Build DataTable class.
@@ -18,24 +18,18 @@ class GradeDataTable extends DataTable
     {
         $dataTable = new EloquentDataTable($query);
 
-        return $dataTable->addColumn('action', 'grades.datatables_actions')
-        ->addColumn('unit_name', function ($grade) {
-            return $grade->enrolment ? $grade->enrolment->unit->unit_name : 'N/A';
-          })
-        ->addColumn('student_name', function ($grade) {
-            return $grade->enrolment->student->admn_no . ' ' . $grade->enrolment->student->surname .' ' . $grade->enrolment->student->first_name  ?? 'N/A';
-        });
+        return $dataTable->addColumn('action', 'grading_systems.datatables_actions');
     }
 
     /**
      * Get query source of dataTable.
      *
-     * @param \App\Models\Grade $model
+     * @param \App\Models\Grading_system $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function query(Grade $model)
+    public function query(Grading_system $model)
     {
-        return $model->newQuery()->with('enrolment.student', 'enrolment.unit');
+        return $model->newQuery();
     }
 
     /**
@@ -72,10 +66,9 @@ class GradeDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            'unit_name'=> ['title' => 'Enrolled Unit'],
-            'student_name' => ['title' => 'Student Name'],
-            'score',
-            'letter_grade'=> ['title' => 'Grade'],
+            'grade',
+            'min_score',
+            'max_score'
         ];
     }
 
@@ -86,6 +79,6 @@ class GradeDataTable extends DataTable
      */
     protected function filename(): string
     {
-        return 'grades_datatable_' . time();
+        return 'grading_systems_datatable_' . time();
     }
 }

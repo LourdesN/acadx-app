@@ -10,6 +10,7 @@ use App\Models\Course;
 use App\Models\Student;
 use App\Models\Unit;
 use App\Repositories\EnrolmentRepository;
+use App\Services\GradeService;
 use Illuminate\Http\Request;
 use Flash;
 
@@ -17,11 +18,14 @@ class EnrolmentController extends AppBaseController
 {
     /** @var EnrolmentRepository $enrolmentRepository*/
     private $enrolmentRepository;
+    protected $gradeService;
 
-    public function __construct(EnrolmentRepository $enrolmentRepo)
+    public function __construct(EnrolmentRepository $enrolmentRepo, GradeService $gradeService)
     {
         $this->enrolmentRepository = $enrolmentRepo;
+        $this->gradeService = $gradeService;
     }
+    
 
     /**
      * Display a listing of the Enrolment.
@@ -141,12 +145,7 @@ class EnrolmentController extends AppBaseController
 
         return redirect(route('enrolments.index'));
     }
-    protected $gradeService;
 
-    public function __construct(GradeService $gradeService)
-    {
-        $this->gradeService = $gradeService;
-    }
 
     public function updateGrade(Request $request, $enrolmentId)
     {

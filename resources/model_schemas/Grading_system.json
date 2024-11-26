@@ -1,7 +1,7 @@
 [
     {
         "name": "id",
-        "dbType": "integer,true",
+        "dbType": "bigInteger,true,true",
         "htmlType": "number",
         "validations": "",
         "searchable": false,
@@ -12,10 +12,10 @@
         "inView": false
     },
     {
-        "name": "score",
+        "name": "grade",
         "dbType": "string",
         "htmlType": "text",
-        "validations": "required|string|max:50|string|max:50",
+        "validations": "required|string|max:191|string|max:191",
         "searchable": true,
         "fillable": true,
         "primary": false,
@@ -24,7 +24,19 @@
         "inView": true
     },
     {
-        "name": "enrolment_id",
+        "name": "min_score",
+        "dbType": "integer,false",
+        "htmlType": "number",
+        "validations": "required",
+        "searchable": true,
+        "fillable": true,
+        "primary": false,
+        "inForm": true,
+        "inIndex": true,
+        "inView": true
+    },
+    {
+        "name": "max_score",
         "dbType": "integer,false",
         "htmlType": "number",
         "validations": "required",
@@ -58,21 +70,5 @@
         "inForm": false,
         "inIndex": false,
         "inView": false
-    },
-    {
-        "name": "letter_grade",
-        "dbType": "string",
-        "htmlType": "text",
-        "validations": "nullable|string|max:191|nullable|string|max:191",
-        "searchable": true,
-        "fillable": true,
-        "primary": false,
-        "inForm": true,
-        "inIndex": true,
-        "inView": true
-    },
-    {
-        "type": "relation",
-        "relation": "mt1,Enrolment,enrolment_id"
     }
 ]
