@@ -7,8 +7,8 @@
  </style>
 <li class="nav-item">
     <a href="{{ route('home') }}" class="nav-link {{ Request::is('home') ? 'active' : '' }}">
-        <i class="nav-icon fas fa-home text-teal"></i>
-        <p>Home</p>
+        <i class="fas fa-chart-line text-teal"></i>
+        <p>Dashboard</p>
     </a>
 </li>
 
@@ -55,6 +55,13 @@
 </li>
 
 <li class="nav-item">
+    <a href="{{ route('lecturers.index') }}" class="nav-link {{ Request::is('lecturers*') ? 'active' : '' }}">
+    <i class="fas fa-chalkboard-teacher text-teal"></i>
+        <p>Lecturers</p>
+    </a>
+</li>
+
+<li class="nav-item">
     <a href="{{ route('units.index') }}" class="nav-link {{ Request::is('units*') ? 'active' : '' }}">
        <i class="fas fa-book text-teal"></i>
         <p>Units</p>
@@ -62,7 +69,7 @@
 </li>
 
 <li class="nav-item">
-    <a href="#" class="nav-link {{ Request::is('invoices*') || Request::is('receipts*') ? 'active' : '' }}" onclick="toggleDropdown(event)">
+    <a href="#" class="nav-link {{ Request::is('invoices*') || Request::is('receipts*') ? 'active' : '' }}" onclick="toggleDrop(event)">
         <i class="fas fa-money-bill-wave text-teal"></i> Finances <i class="fas fa-caret-down"></i>
     </a>
     <div id="financesDropdown" class="collapse">
@@ -80,7 +87,7 @@
 
 <!-- inahandle drop down behaviour -->
 <script>
-    function toggleDropdown(event) {
+    function toggleDrop(event) {
         event.preventDefault();
         const dropdownContent = document.getElementById('financesDropdown');
         dropdownContent.classList.toggle('show');
@@ -90,7 +97,7 @@
 <style>
     #financesDropdown.show {
         display: block;
-        padding-left: 20px;
+        padding-left: 10px;
     }
     #financesDropdown {
         display: none;
@@ -99,6 +106,9 @@
 .dropdown-item {
         display: flex;
         align-items: center;
+        padding: 5px 10px;
+        color: #495057;
+        transition: background-color 0.3s ease;
     }
 
     .dropdown-item:hover {
@@ -121,47 +131,92 @@
     }
 </style>
 
-<li class="nav-item">
-    <a href="{{ route('lecturers.index') }}" class="nav-link {{ Request::is('lecturers*') ? 'active' : '' }}">
-    <i class="fas fa-chalkboard-teacher text-teal"></i>
-        <p>Lecturers</p>
-    </a>
-</li>
+
 
 <li class="nav-item">
-    <a href="{{ route('enrolments.index') }}" class="nav-link {{ Request::is('enrolments*') ? 'active' : '' }}">
-        <i class="fas fa-sign-in-alt text-teal"></i>
-        <p>Enrolments</p>
+    <a href="#" class="nav-link" onclick="toggleDropdown(event)">
+        <i class="fas fa-book text-teal"></i>
+        <p style="display: inline;">Academics</p>
+        <i class="fas fa-caret-down"></i>
     </a>
+    <ul id="academicsDropdown" style="list-style: none; padding-left: 20px;">
+        <li class="dropdown-item">
+            <a href="{{ route('enrolments.index') }}" class="nav-link {{ Request::is('enrolments*') ? 'active' : '' }}">
+                <i class="fas fa-sign-in-alt text-teal"></i> Enrolments
+            </a>
+        </li>
+        <li class="dropdown-item">
+            <a href="{{ route('grading_systems.index') }}" class="nav-link {{ Request::is('gradingSystems*') ? 'active' : '' }}">
+                <i class="fas fa-sort-alpha-down-alt text-teal"></i> Grading Systems
+            </a>
+        </li>
+        <li class="dropdown-item">
+            <a href="{{ route('grades.index') }}" class="nav-link {{ Request::is('grades*') ? 'active' : '' }}">
+                <i class="fas fa-poll text-teal"></i> Results
+            </a>
+        </li>
+        <li class="dropdown-item">
+            <a href="{{ route('exams.index') }}" class="nav-link {{ Request::is('exams*') ? 'active' : '' }}">
+                <i class="fas fa-sticky-note text-teal"></i> Exams
+            </a>
+        </li>
+        <li class="dropdown-item">
+            <a href="{{ route('courseworks.index') }}" class="nav-link {{ Request::is('courseworks*') ? 'active' : '' }}">
+                <i class="fab fa-leanpub text-teal"></i> Courseworks
+            </a>
+        </li>
+    </ul>
 </li>
+<script>
+    function toggleDropdown(event) {
+        event.preventDefault();
+        const dropdownContent = document.getElementById('academicsDropdown');
+        dropdownContent.classList.toggle('show');
+    }
+</script>
+<style>
+    /* Hide dropdown initially */
+    #academicsDropdown {
+        display: none;
+    }
 
-<li class="nav-item">
-    <a href="{{ route('grading_systems.index') }}" class="nav-link {{ Request::is('gradingSystems*') ? 'active' : '' }}">
-    <i class="fas fa-sort-alpha-down-alt text-teal"></i>
-        <p>Grading Systems</p>
-    </a>
-</li>
+    /* Show dropdown when active */
+    #academicsDropdown.show {
+        display: block;
+        padding-left: 10px;
+    }
 
-<li class="nav-item">
-    <a href="{{ route('grades.index') }}" class="nav-link {{ Request::is('grades*') ? 'active' : '' }}">
-        <i class="fas fa-poll text-teal"></i>
-        <p>Results</p>
-    </a>
-</li>
+    /* Style for dropdown items */
+    .dropdown-item {
+        display: flex;
+        align-items: center;
+        padding: 5px 10px;
+        color: #495057;
+        transition: background-color 0.3s ease;
+    }
 
-<li class="nav-item">
-    <a href="{{ route('exams.index') }}" class="nav-link {{ Request::is('exams*') ? 'active' : '' }}">
-    <i class="fas fa-sticky-note text-teal"></i>
-        <p>Exams</p>
-    </a>
-</li>
+    .dropdown-item:hover {
+        background-color: #343a40;
+        color: white;
+    }
 
-<li class="nav-item">
-    <a href="{{ route('courseworks.index') }}" class="nav-link {{ Request::is('courseworks*') ? 'active' : '' }}">
-       <i class="fab fa-leanpub text-teal"></i>
-        <p>Courseworks</p>
-    </a>
-</li>
+    /* Main nav link styles */
+    .nav-link {
+        color: #495057;
+        padding: 10px;
+        font-size: 14px;
+    }
+
+    .nav-link:hover {
+        color: #007bff;
+    }
+
+    /* Caret icon styling */
+    .fa-caret-down {
+        margin-left: 100px;
+        font-size: 16px;
+    }
+</style>
 
 <li class="nav-item">
     <a href="{{ route('lessons.index') }}" class="nav-link {{ Request::is('lessons*') ? 'active' : '' }}">
