@@ -89,4 +89,3 @@
         </div>
     </body>
 </x-laravel-ui-adminlte::adminlte-layout>
-
