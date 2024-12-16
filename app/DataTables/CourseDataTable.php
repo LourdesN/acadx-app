@@ -19,7 +19,17 @@ class CourseDataTable extends DataTable
         $dataTable = new EloquentDataTable($query);
 
         // Add the 'action' column
-        return $dataTable->addColumn('action', 'courses.datatables_actions');
+        return $dataTable
+        ->addColumn('action', 'courses.datatables_actions')
+        ->addColumn('view_units', function ($course) {
+            // Add a button that links to the units for this course
+            $url = route('courses.units', $course->id);
+            return '<a href="' . $url . '" class="btn btn-primary btn-sm">View Units</a>';
+            
+        })
+        ->rawColumns(['view_units', 'action']); 
+      // Make 'view_units' column HTML safe
+        
     }
 
     /**
@@ -30,7 +40,6 @@ class CourseDataTable extends DataTable
      */
     public function query(Course $model)
     {
-        // Eager load the level and department relationships
         return $model->newQuery()
             ->with(['level', 'department']);
     }
@@ -70,10 +79,9 @@ class CourseDataTable extends DataTable
     {
         return [
             'name',
-            // Display the related 'level' name instead of 'level_id'
             'level_name' => ['name' => 'level.name', 'data' => 'level.name'],
-            // Display the related 'department' name instead of 'department_id'
             'department_name' => ['name' => 'department.name', 'data' => 'department.name'],
+            'view_units' => ['title' => 'Units', 'searchable' => false, 'orderable' => false],
         ];
     }
 

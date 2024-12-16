@@ -28,9 +28,10 @@ class EnrolmentDataTable extends DataTable
                         ->addColumn('formatted_year', function ($enrolment) {
                             return $enrolment->year . ($enrolment->year == 1 ? 'st' : ($enrolment->year == 2 ? 'nd' : ($enrolment->year == 3 ? 'rd' : 'th'))) . ' year';
                         })
-                        ->addColumn('units', function (Enrolment $enrolment) {
-                             return $enrolment->units ? $enrolment->units->pluck('unit_name')->implode(', ') : 'N/A';
+                        ->addColumn('unit', function (Enrolment $enrolment) {
+                            return $enrolment->unit ? $enrolment->unit->unit_name : 'N/A';
                         });
+                        
     }
 
     /**
@@ -80,7 +81,7 @@ class EnrolmentDataTable extends DataTable
         return [
             'student_name' => ['title' => 'Student Name'],
             'course_name' => ['title' => 'Course Name'],
-            'units' => ['title' => 'Units'],
+            'unit' => ['title' => 'Unit'],
             'semester',
             'semester_status',
             'formatted_year' => ['title' => 'Year'] 

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CourseController;
 use App\Http\Controllers\EnrolmentController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Auth;
@@ -46,3 +47,4 @@ Route::post('/enrolments/{enrolmentId}/update-grade', [EnrolmentController::clas
 
 
 Route::resource('grading_systems', App\Http\Controllers\Grading_systemController::class);
+Route::get('courses/{id}/units', [CourseController::class, 'viewUnits'])->name('courses.units');

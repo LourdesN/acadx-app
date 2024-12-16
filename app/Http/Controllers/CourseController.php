@@ -6,6 +6,7 @@ use App\DataTables\CourseDataTable;
 use App\Http\Requests\CreateCourseRequest;
 use App\Http\Requests\UpdateCourseRequest;
 use App\Http\Controllers\AppBaseController;
+use App\Models\Course;
 use App\Models\Department;
 use App\Models\Level;
 use App\Repositories\CourseRepository;
@@ -136,4 +137,10 @@ class CourseController extends AppBaseController
 
         return redirect(route('courses.index'));
     }
+    public function viewUnits($id)
+    {
+        $course = Course::with('units')->findOrFail($id);
+        return view('courses.units', compact('course'));
+    }
+
 }
