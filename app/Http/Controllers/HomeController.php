@@ -58,9 +58,9 @@ class HomeController extends Controller
             $totalLecturers = Lecturer::count();
             $totalPaid = Receipt::sum('amount_paid');
             $totalBalance = Receipt::sum('balance');
-            $recentUsers = User::latest()->take(2)->get(); 
+            $recentUsers = User::latest()->take(2)->get();
             
-            $departments = Department::pluck('name')->toArray(); 
+            $departments = Department::pluck('name')->toArray();
             $employeeCountsByDepartment = Department::withCount('employees')->pluck('employees_count')->toArray();
 
             $data = DB::table('employees')
