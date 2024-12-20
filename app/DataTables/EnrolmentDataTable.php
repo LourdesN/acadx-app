@@ -84,7 +84,7 @@ class EnrolmentDataTable extends DataTable
             'unit' => ['title' => 'Unit'],
             'semester',
             'semester_status',
-            'formatted_year' => ['title' => 'Year'] 
+            'formatted_year' => ['title' => 'Year']
         ];
     }
 
